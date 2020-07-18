@@ -1,6 +1,6 @@
 package com.example.googlebookscleanarchitecture.view.main.book
 
-import com.example.googlebookscleanarchitecture.model.BooksState
+import com.example.googlebookscleanarchitecture.data.model.BooksState
 
 interface BookView {
     fun render(booksState: BooksState)

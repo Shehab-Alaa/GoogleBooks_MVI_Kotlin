@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -119,3 +122,5 @@
         app:layout_constraintEnd_toEndOf="@+id/image_background"
         app:layout_constraintTop_toTopOf="@+id/image_background" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

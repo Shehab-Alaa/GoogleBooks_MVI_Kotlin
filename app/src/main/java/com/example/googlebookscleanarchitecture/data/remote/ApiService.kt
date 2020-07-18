@@ -1,6 +1,6 @@
-package com.example.googlebookscleanarchitecture.model.remote
+package com.example.googlebookscleanarchitecture.data.remote
 
-import com.example.googlebookscleanarchitecture.model.api.DataResponse
+import com.example.googlebookscleanarchitecture.data.model.api.DataResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 

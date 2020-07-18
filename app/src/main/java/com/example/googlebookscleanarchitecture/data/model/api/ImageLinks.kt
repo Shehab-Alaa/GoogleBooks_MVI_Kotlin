@@ -1,4 +1,4 @@
-package com.example.googlebookscleanarchitecture.model.api
+package com.example.googlebookscleanarchitecture.data.model.api
 
 import com.google.gson.annotations.SerializedName
 

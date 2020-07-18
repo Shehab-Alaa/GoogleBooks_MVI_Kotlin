@@ -1,10 +1,8 @@
 package com.example.googlebookscleanarchitecture.intent
 
-import android.util.Log
-import com.example.googlebookscleanarchitecture.model.BooksState
-import com.example.googlebookscleanarchitecture.model.remote.ApiService
+import com.example.googlebookscleanarchitecture.data.model.BooksState
+import com.example.googlebookscleanarchitecture.data.remote.ApiService
 import com.example.googlebookscleanarchitecture.view.main.book.BookView
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

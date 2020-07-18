@@ -1,4 +1,4 @@
-package com.example.googlebookscleanarchitecture.model.remote
+package com.example.googlebookscleanarchitecture.data.remote
 
 object ApiClient {
     const val BASE_URL = "https://www.googleapis.com/books/v1/"

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayoutView"
     android:layout_width="match_parent"
@@ -38,3 +41,5 @@
             android:textAllCaps="false"
             android:textSize="20sp" />
     </LinearLayout>
+
+</layout>

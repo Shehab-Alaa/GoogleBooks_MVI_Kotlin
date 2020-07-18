@@ -1,4 +1,4 @@
-package com.example.googlebookscleanarchitecture.model
+package com.example.googlebookscleanarchitecture.data.model
 
 sealed class BooksState {
     object LoadingState : BooksState()

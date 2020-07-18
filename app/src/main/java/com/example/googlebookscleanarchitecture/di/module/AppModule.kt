@@ -2,8 +2,8 @@ package com.example.googlebookscleanarchitecture.di.module
 
 import android.app.Application
 import android.content.Context
-import com.example.googlebookscleanarchitecture.model.remote.ApiClient
-import com.example.googlebookscleanarchitecture.model.remote.ApiService
+import com.example.googlebookscleanarchitecture.data.remote.ApiClient
+import com.example.googlebookscleanarchitecture.data.remote.ApiService
 import com.example.googlebookscleanarchitecture.utils.NetworkUtils
 import okhttp3.Cache
 import okhttp3.Interceptor
