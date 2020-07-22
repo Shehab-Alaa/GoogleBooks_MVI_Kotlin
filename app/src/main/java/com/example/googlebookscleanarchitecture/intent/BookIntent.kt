@@ -3,15 +3,14 @@ package com.example.googlebookscleanarchitecture.intent
 import com.example.googlebookscleanarchitecture.data.model.BooksState
 import com.example.googlebookscleanarchitecture.data.remote.ApiService
 import com.example.googlebookscleanarchitecture.view.main.book.BookView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import javax.inject.Inject
 
-class BookIntent  : KoinComponent{
+class BookIntent @Inject constructor(private val apiService: ApiService) {
 
-    private val apiService : ApiService by inject()
     private val compositeDisposable = CompositeDisposable()
     private lateinit var bookView : BookView
 
