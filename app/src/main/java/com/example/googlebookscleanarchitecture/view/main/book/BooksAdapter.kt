@@ -1,16 +1,12 @@
 package com.example.googlebookscleanarchitecture.view.main.book
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.googlebookscleanarchitecture.R
 import com.example.googlebookscleanarchitecture.data.model.Book
-import com.example.googlebookscleanarchitecture.databinding.EmptyItemBookBinding
 import com.example.googlebookscleanarchitecture.databinding.ItemBookBinding
 import com.example.googlebookscleanarchitecture.view.base.BaseRecyclerViewAdapter
 import com.example.googlebookscleanarchitecture.view.base.BaseViewHolder
@@ -26,6 +22,16 @@ class BooksAdapter(booksItems : MutableList<Book>) : BaseRecyclerViewAdapter<Boo
 
         override fun onBind(position: Int) {
             val book = getItems()[position]
+
+            // Animation Part
+            itemBookBinding.bookThumbnail.animation = AnimationUtils.loadAnimation(itemBookBinding.bookThumbnail.context , R.anim.fade_transition_animation)
+            itemBookBinding.imageBackground.animation = AnimationUtils.loadAnimation(itemBookBinding.imageBackground.context , R.anim.fade_scale_animation)
+            itemBookBinding.bookTitle.animation = AnimationUtils.loadAnimation( itemBookBinding.bookTitle.context , R.anim.fade_scale_animation)
+            itemBookBinding.bookAuthor.animation = AnimationUtils.loadAnimation( itemBookBinding.bookAuthor.context , R.anim.fade_scale_animation)
+            itemBookBinding.bookRatingBar.animation = AnimationUtils.loadAnimation(itemBookBinding.bookRatingBar.context , R.anim.fade_scale_animation)
+            itemBookBinding.bookPageCount.animation = AnimationUtils.loadAnimation(itemBookBinding.bookPageCount.context , R.anim.fade_scale_animation)
+            itemBookBinding.bookReviewsCount.animation = AnimationUtils.loadAnimation(itemBookBinding.bookReviewsCount.context , R.anim.fade_scale_animation)
+            itemBookBinding.imageView4.animation = AnimationUtils.loadAnimation(itemBookBinding.imageView4.context , R.anim.fade_scale_animation)
 
             itemBookBinding.bookTitle.text = book.bookInfo?.title
             itemBookBinding.bookAuthor.text = "By " + book.bookInfo?.authors?.get(0)
