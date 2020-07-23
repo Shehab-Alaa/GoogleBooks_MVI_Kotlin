@@ -2,6 +2,12 @@
 
 <layout>
 
+    <data>
+        <variable
+            name="book"
+            type="com.example.googlebookscleanarchitecture.data.model.Book" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/item_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,6 +39,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
+        android:bookThumbnail="@{book.bookInfo.imageLinks.thumbnail}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +54,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        tools:text="Book Title"
+        android:text="@{book.bookInfo.title , default=`Book Title`}"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
@@ -69,7 +76,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:text="Author"
+        android:text="@string/by_author"
+        android:bookAuthor="@{book.bookInfo.authors[0]}"
         app:layout_constraintStart_toEndOf="@+id/book_thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/book_title" />
 
@@ -80,6 +88,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:bookRate="@{book.bookInfo.averageRating}"
         style="@style/Widget.AppCompat.RatingBar.Small"
         app:layout_constraintStart_toEndOf="@+id/book_thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/book_author" />
@@ -92,7 +101,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="0 Pages"
+        android:text="@string/_0_pages"
+        android:bookPageCount="@{book.bookInfo.pageCount}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/book_thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/book_rating_bar"
@@ -106,7 +116,8 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="0 Reviews"
+        android:text="@string/_0_reviews"
+        android:bookReviews="@{book.bookInfo.ratingsCount}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/book_page_count"
         app:layout_constraintTop_toBottomOf="@+id/book_rating_bar"

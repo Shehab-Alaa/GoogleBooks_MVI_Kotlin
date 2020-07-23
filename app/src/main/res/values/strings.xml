@@ -3,4 +3,7 @@
     <string name="empty_screen">We do not have anything\nhere right now.</string>
     <string name="please_retry">Please Retry</string>
     <string name="retry">Retry</string>
+    <string name="by_author">By Author</string>
+    <string name="_0_pages">0 Pages</string>
+    <string name="_0_reviews">0 Reviews</string>
 </resources>
