@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.main.favorite.FavoriteBooksFragment">
+
+    <include
+        android:id="@+id/favorite_empty_view"
+        layout="@layout/favorite_empty_item_book"
+        android:visibility="invisible"/>
+
+    <include
+        android:id="@+id/favorite_shimmer_view"
+        layout="@layout/shimmer_loading_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorite_books_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_favorite_book" />
+
+</FrameLayout>
+
+</layout>

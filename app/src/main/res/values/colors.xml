@@ -6,4 +6,5 @@
 
     <color name="lightBackgroundColor">#f3f3f3</color>
     <color name="shimmerViewBackground">#E0E0E0</color>
+    <color name="darkTextColor">#000000</color>
 </resources>

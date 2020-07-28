@@ -1,4 +1,4 @@
-package com.example.googlebookscleanarchitecture.view
+package com.example.googlebookscleanarchitecture.view.main
 
 import com.example.googlebookscleanarchitecture.R
 import com.example.googlebookscleanarchitecture.databinding.ActivityMainBinding

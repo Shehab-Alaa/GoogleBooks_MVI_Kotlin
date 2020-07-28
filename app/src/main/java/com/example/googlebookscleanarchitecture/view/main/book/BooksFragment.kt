@@ -1,33 +1,45 @@
 package com.example.googlebookscleanarchitecture.view.main.book
 
+import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.googlebookscleanarchitecture.R
+import com.example.googlebookscleanarchitecture.data.model.db.Book
 import com.example.googlebookscleanarchitecture.data.model.BooksState
 import com.example.googlebookscleanarchitecture.databinding.FragmentBooksBinding
-import com.example.googlebookscleanarchitecture.intent.BookIntent
+import com.example.googlebookscleanarchitecture.intent.BooksIntent
 import com.example.googlebookscleanarchitecture.view.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class BooksFragment : BaseFragment<FragmentBooksBinding>(), BookView {
+class BooksFragment : BaseFragment<FragmentBooksBinding>(), BooksView {
 
     @Inject lateinit var booksAdapter: BooksAdapter
-    @Inject lateinit var bookIntent : BookIntent
+    @Inject lateinit var booksIntent : BooksIntent
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
         initRecyclerView()
-        bookIntent.bind(this)
+        booksIntent.bind(this)
 
         getViewDataBinding().emptyView.btnRetry.setOnClickListener {
-            onRetryClick()
+            booksIntent.onRetryClickEvent()
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_books
 
     private fun initRecyclerView(){
         getViewDataBinding().bookRv.layoutManager = LinearLayoutManager(context)
@@ -43,8 +55,12 @@ class BooksFragment : BaseFragment<FragmentBooksBinding>(), BookView {
         }
     }
 
-    override fun onRetryClick() {
-        bookIntent.bind(this)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onBookItemClick(view: View, book: Book) {
+        view.transitionName = book.bookInfo?.imageLinks?.thumbnail
+        val extras = FragmentNavigatorExtras(view to book.bookInfo?.imageLinks?.thumbnail.toString())
+        val action = BooksFragmentDirections.actionBooksFragmentToBookDetailsFragment(book)
+        getNavController().navigate(action,extras)
     }
 
     private fun renderDataState(dataState: BooksState.DataState) {
@@ -69,12 +85,29 @@ class BooksFragment : BaseFragment<FragmentBooksBinding>(), BookView {
         if (normalLayout) getViewDataBinding().bookRv.visibility = View.VISIBLE else getViewDataBinding().bookRv.visibility = View.INVISIBLE
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main , menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_booksFragment_to_favoriteBooksFragment)
+        {
+            val action = BooksFragmentDirections.actionBooksFragmentToFavoriteBooksFragment()
+            getNavController().navigate(action)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+    }
+
     override fun onPause() {
         getViewDataBinding().shimmerView.shimmerLayout.stopShimmer()
         getViewDataBinding().shimmerView.shimmerLayout.visibility = View.INVISIBLE
         super.onPause()
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_books
 }

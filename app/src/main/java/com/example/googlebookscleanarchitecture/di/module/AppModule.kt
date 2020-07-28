@@ -2,11 +2,16 @@ package com.example.googlebookscleanarchitecture.di.module
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
+import com.example.googlebookscleanarchitecture.data.local.db.AppDatabase
 import com.example.googlebookscleanarchitecture.data.remote.ApiClient
 import com.example.googlebookscleanarchitecture.data.remote.ApiService
-import com.example.googlebookscleanarchitecture.intent.BookIntent
+import com.example.googlebookscleanarchitecture.intent.BooksIntent
+import com.example.googlebookscleanarchitecture.intent.FavoriteBooksIntent
+import com.example.googlebookscleanarchitecture.utils.AppConstants
 import com.example.googlebookscleanarchitecture.utils.NetworkUtils
 import com.example.googlebookscleanarchitecture.view.main.book.BooksAdapter
+import com.example.googlebookscleanarchitecture.view.main.favorite.FavoriteBooksAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -78,8 +83,26 @@ object AppModule{
     fun provideAppContext(application: Application): Context = application
 
     @Provides
-    fun provideBookIntent(apiService: ApiService) : BookIntent = BookIntent(apiService)
+    @Singleton
+    fun provideDatabaseName() : String = AppConstants.DATABASE_NAME
 
     @Provides
-    fun provideBooksAdapter() : BooksAdapter = BooksAdapter(mutableListOf())
+    @Singleton
+    fun provideAppDatabase(context : Context , databaseName : String) : AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, databaseName)
+        .allowMainThreadQueries().build()
+
+    @Provides
+    @Singleton
+    fun provideBookIntent(apiService: ApiService) : BooksIntent = BooksIntent(apiService)
+
+    @Provides
+    @Singleton
+    fun provideFavoriteBooksIntent(appDatabase: AppDatabase) : FavoriteBooksIntent = FavoriteBooksIntent(appDatabase)
+
+    @Provides
+    fun provideBooksAdapter(booksIntent: BooksIntent) : BooksAdapter = BooksAdapter(booksIntent,mutableListOf())
+
+    @Provides
+    fun provideFavoriteBooksAdapter() : FavoriteBooksAdapter = FavoriteBooksAdapter(mutableListOf())
+
 }

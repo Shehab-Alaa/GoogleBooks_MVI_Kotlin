@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import com.example.googlebookscleanarchitecture.R
-import com.example.googlebookscleanarchitecture.data.model.Book
+import com.example.googlebookscleanarchitecture.data.model.db.Book
 import com.example.googlebookscleanarchitecture.databinding.ItemBookBinding
+import com.example.googlebookscleanarchitecture.intent.BooksIntent
 import com.example.googlebookscleanarchitecture.view.base.BaseRecyclerViewAdapter
 import com.example.googlebookscleanarchitecture.view.base.BaseViewHolder
 
 
-class BooksAdapter(booksItems : MutableList<Book>) : BaseRecyclerViewAdapter<Book>(booksItems){
+class BooksAdapter(private val booksIntent: BooksIntent , booksItems : MutableList<Book>) : BaseRecyclerViewAdapter<Book>(booksItems){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return BooksViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context) , R.layout.item_book , parent , false))
@@ -32,7 +33,13 @@ class BooksAdapter(booksItems : MutableList<Book>) : BaseRecyclerViewAdapter<Boo
             // Binding Part
             itemBookBinding.book = getItems()[position]
             itemBookBinding.executePendingBindings()
+
+            itemBookBinding.itemLayout.setOnClickListener {
+                booksIntent.onBookItemClick(it , getItems()[position])
+            }
         }
+
+
 
     }
 

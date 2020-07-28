@@ -46,7 +46,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         return navController
     }
 
-    fun gerMRootView() : View{
+    fun getMRootView() : View{
         return mRootView
     }
 

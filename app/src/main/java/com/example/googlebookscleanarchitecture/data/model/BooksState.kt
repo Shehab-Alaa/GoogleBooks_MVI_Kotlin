@@ -1,5 +1,7 @@
 package com.example.googlebookscleanarchitecture.data.model
 
+import com.example.googlebookscleanarchitecture.data.model.db.Book
+
 sealed class BooksState {
     object LoadingState : BooksState()
     data class DataState(val data: MutableList<Book>) : BooksState()

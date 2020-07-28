@@ -1,8 +1,7 @@
-package com.example.googlebookscleanarchitecture.view.main.book
+package com.example.googlebookscleanarchitecture.view.main.favorite
 
 import com.example.googlebookscleanarchitecture.data.model.BooksState
 
-interface BookView {
+interface FavoriteBooksView {
     fun render(booksState: BooksState)
-    fun onRetryClick()
 }

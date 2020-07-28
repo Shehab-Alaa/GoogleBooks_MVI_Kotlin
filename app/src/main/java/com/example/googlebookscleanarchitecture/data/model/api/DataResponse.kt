@@ -1,6 +1,6 @@
 package com.example.googlebookscleanarchitecture.data.model.api
 
-import com.example.googlebookscleanarchitecture.data.model.Book
+import com.example.googlebookscleanarchitecture.data.model.db.Book
 import com.google.gson.annotations.SerializedName
 
 
