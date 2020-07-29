@@ -1,7 +1,9 @@
 package com.example.googlebookscleanarchitecture.intent
 
+import android.view.View
 import com.example.googlebookscleanarchitecture.data.local.db.AppDatabase
 import com.example.googlebookscleanarchitecture.data.model.BooksState
+import com.example.googlebookscleanarchitecture.data.model.db.Book
 import com.example.googlebookscleanarchitecture.view.main.favorite.FavoriteBooksView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -27,4 +29,7 @@ class FavoriteBooksIntent @Inject constructor(private val appDatabase: AppDataba
             favoriteBooksView.render(BooksState.ErrorState(it.localizedMessage ?: "Fetch Failed"))
         })
 
+    fun onBookItemClick(view : View, book : Book){
+        favoriteBooksView.onBookItemClick(view,book)
+    }
 }

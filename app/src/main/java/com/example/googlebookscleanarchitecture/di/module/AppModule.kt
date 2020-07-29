@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.example.googlebookscleanarchitecture.data.local.db.AppDatabase
 import com.example.googlebookscleanarchitecture.data.remote.ApiClient
 import com.example.googlebookscleanarchitecture.data.remote.ApiService
+import com.example.googlebookscleanarchitecture.intent.BookDetailsIntent
 import com.example.googlebookscleanarchitecture.intent.BooksIntent
 import com.example.googlebookscleanarchitecture.intent.FavoriteBooksIntent
 import com.example.googlebookscleanarchitecture.utils.AppConstants
@@ -100,9 +101,13 @@ object AppModule{
     fun provideFavoriteBooksIntent(appDatabase: AppDatabase) : FavoriteBooksIntent = FavoriteBooksIntent(appDatabase)
 
     @Provides
+    @Singleton
+    fun provideBookDetailsIntent(appDatabase: AppDatabase) : BookDetailsIntent = BookDetailsIntent(appDatabase)
+
+    @Provides
     fun provideBooksAdapter(booksIntent: BooksIntent) : BooksAdapter = BooksAdapter(booksIntent,mutableListOf())
 
     @Provides
-    fun provideFavoriteBooksAdapter() : FavoriteBooksAdapter = FavoriteBooksAdapter(mutableListOf())
+    fun provideFavoriteBooksAdapter(favoriteBooksIntent: FavoriteBooksIntent) : FavoriteBooksAdapter = FavoriteBooksAdapter(favoriteBooksIntent,mutableListOf())
 
 }

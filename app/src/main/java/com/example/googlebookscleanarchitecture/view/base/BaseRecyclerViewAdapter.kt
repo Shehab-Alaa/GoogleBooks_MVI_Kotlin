@@ -13,6 +13,7 @@ abstract class BaseRecyclerViewAdapter<T>(private val items: MutableList<T>) : R
     }
 
     open fun addItems(items: List<T>) {
+        clearItems()
         this.items.addAll(items)
         notifyDataSetChanged()
     }

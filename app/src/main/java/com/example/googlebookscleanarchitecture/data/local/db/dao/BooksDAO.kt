@@ -16,8 +16,8 @@ interface BooksDAO {
     fun loadAll(): Single<List<Book>>
 
     @Query("delete from ${AppConstants.DATABASE_NAME} where id = :bookID")
-    fun delete(bookID: Int)
+    fun delete(bookID: String)
 
     @Query("select COUNT(*) from ${AppConstants.DATABASE_NAME} where id = :bookID")
-    fun isExist(bookID: Int): Single<Int>
+    fun isExist(bookID: String): Single<Int>
 }

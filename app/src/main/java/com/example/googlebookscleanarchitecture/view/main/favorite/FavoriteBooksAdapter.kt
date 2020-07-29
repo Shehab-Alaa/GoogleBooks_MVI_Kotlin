@@ -7,10 +7,11 @@ import androidx.databinding.DataBindingUtil
 import com.example.googlebookscleanarchitecture.R
 import com.example.googlebookscleanarchitecture.data.model.db.Book
 import com.example.googlebookscleanarchitecture.databinding.ItemFavoriteBookBinding
+import com.example.googlebookscleanarchitecture.intent.FavoriteBooksIntent
 import com.example.googlebookscleanarchitecture.view.base.BaseRecyclerViewAdapter
 import com.example.googlebookscleanarchitecture.view.base.BaseViewHolder
 
-class FavoriteBooksAdapter(booksItems : MutableList<Book>) : BaseRecyclerViewAdapter<Book>(booksItems){
+class FavoriteBooksAdapter(private val favoriteBooksIntent: FavoriteBooksIntent , booksItems : MutableList<Book>) : BaseRecyclerViewAdapter<Book>(booksItems){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return BooksViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context) , R.layout.item_favorite_book , parent , false))
@@ -31,6 +32,10 @@ class FavoriteBooksAdapter(booksItems : MutableList<Book>) : BaseRecyclerViewAda
             // Binding Part
             itemFavoriteBookBinding.book = getItems()[position]
             itemFavoriteBookBinding.executePendingBindings()
+
+            itemFavoriteBookBinding.itemLayout.setOnClickListener {
+                favoriteBooksIntent.onBookItemClick(itemFavoriteBookBinding.bookThumbnail , getItems()[position])
+            }
         }
 
     }

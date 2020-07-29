@@ -1,14 +1,20 @@
 package com.example.googlebookscleanarchitecture.view.main.favorite
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.googlebookscleanarchitecture.R
 import com.example.googlebookscleanarchitecture.data.model.BooksState
+import com.example.googlebookscleanarchitecture.data.model.db.Book
 import com.example.googlebookscleanarchitecture.databinding.FragmentFavoriteBooksBinding
 import com.example.googlebookscleanarchitecture.intent.FavoriteBooksIntent
+import com.example.googlebookscleanarchitecture.utils.ViewUtils
 import com.example.googlebookscleanarchitecture.view.base.BaseFragment
+import com.example.googlebookscleanarchitecture.view.main.book.BooksFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.empty_item_book.view.*
 import javax.inject.Inject
@@ -25,6 +31,7 @@ class FavoriteBooksFragment : BaseFragment<FragmentFavoriteBooksBinding>() , Fav
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+        initViewControllers()
         favoriteBooksIntent.bind(this)
     }
 
@@ -32,6 +39,12 @@ class FavoriteBooksFragment : BaseFragment<FragmentFavoriteBooksBinding>() , Fav
         getViewDataBinding().favoriteBooksRv.layoutManager = LinearLayoutManager(context)
         getViewDataBinding().favoriteBooksRv.setHasFixedSize(true)
         getViewDataBinding().favoriteBooksRv.adapter = favoriteBooksAdapter
+    }
+
+    private fun initViewControllers(){
+        ViewUtils.emptyLayoutView = getViewDataBinding().favoriteEmptyView.linearLayoutView
+        ViewUtils.shimmerLayoutView = getViewDataBinding().favoriteShimmerView.shimmerLayout
+        ViewUtils.recyclerView = getViewDataBinding().favoriteBooksRv
     }
 
     override fun render(booksState: BooksState) {
@@ -43,24 +56,24 @@ class FavoriteBooksFragment : BaseFragment<FragmentFavoriteBooksBinding>() , Fav
     }
 
     private fun renderDataState(dataState: BooksState.DataState) {
-        viewVisibilityControl(emptyLayout = false, shimmerLayout = false, normalLayout = true)
+        ViewUtils.viewVisibilityControl(emptyLayout = false, shimmerLayout = false, normalLayout = true)
         favoriteBooksAdapter.addItems(dataState.data)
     }
 
     private fun renderLoadingState() {
-        viewVisibilityControl(emptyLayout = false, shimmerLayout = true, normalLayout = false)
+        ViewUtils.viewVisibilityControl(emptyLayout = false, shimmerLayout = true, normalLayout = false)
     }
 
     private fun renderErrorState(errorState: BooksState.ErrorState) {
-        viewVisibilityControl(emptyLayout = true, shimmerLayout = false, normalLayout = false)
+        ViewUtils.viewVisibilityControl(emptyLayout = true, shimmerLayout = false, normalLayout = false)
     }
 
-    private fun viewVisibilityControl(emptyLayout : Boolean  , shimmerLayout : Boolean , normalLayout : Boolean){
-        if (emptyLayout) getViewDataBinding().favoriteEmptyView.linearLayoutView.visibility = View.VISIBLE else getViewDataBinding().favoriteEmptyView.linearLayoutView.visibility = View.INVISIBLE
-        if (shimmerLayout) { getViewDataBinding().favoriteShimmerView.shimmerLayout.visibility = View.VISIBLE
-            getViewDataBinding().favoriteShimmerView.shimmerLayout.startShimmer()} else { getViewDataBinding().favoriteShimmerView.shimmerLayout.stopShimmer()
-            getViewDataBinding().favoriteShimmerView.shimmerLayout.visibility = View.INVISIBLE}
-        if (normalLayout) getViewDataBinding().favoriteBooksRv.visibility = View.VISIBLE else getViewDataBinding().favoriteBooksRv.visibility = View.INVISIBLE
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onBookItemClick(view: View, book: Book) {
+        view.transitionName = book.bookInfo?.imageLinks?.thumbnail
+        val extras = FragmentNavigatorExtras(view to book.bookInfo?.imageLinks?.thumbnail.toString())
+        val action = FavoriteBooksFragmentDirections.actionFavoriteBooksFragmentToBookDetailsFragment(book)
+        getNavController().navigate(action,extras)
     }
 
     override val layoutId: Int

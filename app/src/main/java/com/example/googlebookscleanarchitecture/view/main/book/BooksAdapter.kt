@@ -35,7 +35,7 @@ class BooksAdapter(private val booksIntent: BooksIntent , booksItems : MutableLi
             itemBookBinding.executePendingBindings()
 
             itemBookBinding.itemLayout.setOnClickListener {
-                booksIntent.onBookItemClick(it , getItems()[position])
+                booksIntent.onBookItemClick(itemBookBinding.bookThumbnail , getItems()[position])
             }
         }
 

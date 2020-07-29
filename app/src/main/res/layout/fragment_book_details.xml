@@ -173,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="32dp"
             app:elevation="6dp"
-            android:src="@drawable/ic_favorite"
+            android:src="@drawable/ic_un_favorite"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right|end" />
 
@@ -186,6 +186,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/description_card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -201,7 +202,8 @@
                     android:textColor="@color/darkTextColor"
                     android:padding="10dp"
                     android:text="@{book.bookInfo.description}"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:fontFamily="casual"/>
 
 
             </androidx.cardview.widget.CardView>
