@@ -1,7 +1,7 @@
 # GoogleBooks_MVI_Kotlin (Clean_Architecture)
 This repository contains a simple app to hit Sport-Category Google-Books API and show a list of books, that shows book details when items on the list are tapped, also user is able to add books to his favorite list that implements MVI architecture using Hilt, Retrofit, RxJava, RoomDatabase, DataBinding and Navigation Component Applying Clean Code using OOP and SOLID Priciples.
 
-## Animaton Part 
+## Animation Part 
 Using Facebook ShimmerLayout Animation , Shared Element Transition and RecyclerView-Item Animation
 
 ![117337536_220681359266294_4070239216491888377_n](https://user-images.githubusercontent.com/39988066/89719853-c92dd000-d9cc-11ea-8ed5-2da796c59ee0.png)
@@ -10,7 +10,7 @@ Using Facebook ShimmerLayout Animation , Shared Element Transition and RecyclerV
 1. data: It contains all the data accessing and manipulating components.
 2. di: Dependency providing classes using Hilt.
 3. view: View classes along with their corresponding Presenters.
-4. intent: Intent Classes for dealing with each view.
+4. intent: Intent Classes for dealing with view interactions.
 5. utils: Utility classes.
 
 ## Navigation Component Graph
